@@ -76,7 +76,7 @@ function App() {
 		try {
 			setIsLoading(true);
 			const { data } = await axios.post(
-				'https://airtel-channel-partner-app.vercel.app',
+				'http://localhost:5000/api/v1/registrations',
 				form,
 				{
 					headers: {
