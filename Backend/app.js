@@ -11,9 +11,9 @@ const notFound = require('./middleware/not-found');
 const errorHandler = require('./middleware/errorHandler');
 const port = require('./config/environment');
 const corsOptions = {
-	origin: '*',
+	origin: 'http://localhost:5000',
 	credentials: true,
-	optionSuccessStatus: 200,
+	optionsSuccessStatus: 200,
 };
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 });
 
 //Routes
-app.use('/api/v1/registrations', registrationsRouter);
+app.use('/api/v1/registrations', cors(corsOptions), registrationsRouter);
 // non-existent routes
 app.use(notFound);
 // catching errors after asyncwrapper
