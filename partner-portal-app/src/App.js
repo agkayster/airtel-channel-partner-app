@@ -76,7 +76,7 @@ function App() {
 		try {
 			setIsLoading(true);
 			const { data } = await axios.post(
-				'https://airtel-channel-partner-app-backend.vercel.app/',
+				'https://airtel-channel-partner-app-backend.vercel.app',
 				form,
 				{
 					headers: {
@@ -94,6 +94,7 @@ function App() {
 				setIsLoading(false);
 			}
 		} catch (error) {
+			console.log('check error=>', error);
 			setError({ error: error.response.data.error.errors });
 		}
 	};
