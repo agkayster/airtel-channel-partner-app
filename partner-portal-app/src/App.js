@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { axiosInstance } from './utils/API';
 import { formTemplate } from './template/template';
 import { useLocalStorage } from './utils/useLocalStorage';
@@ -74,14 +75,18 @@ function App() {
 
 		try {
 			setIsLoading(true);
-			const { data } = await axiosInstance.post(`${url}`, form, {
-				headers: {
-					'content-type': 'multipart/form-data',
-					// 'Access-Control-Allow-Origin': 'http://localhost:5000',
-					// 'Access-Control-Allow-Methods':
-					// 	'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-				},
-			});
+			const { data } = await axios.post(
+				'https://airtel-channel-partner-app.vercel.app/Backend',
+				form,
+				{
+					headers: {
+						'content-type': 'multipart/form-data',
+						// 'Access-Control-Allow-Origin': 'http://localhost:5000',
+						// 'Access-Control-Allow-Methods':
+						// 	'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+					},
+				}
+			);
 			console.log('get updated data =>', data);
 			if (data) {
 				setMessage('update successfull...');
