@@ -1,0 +1,43 @@
+[
+	{
+		"name": "Ejike",
+		"surname": "Chiboka",
+		"companyName": "marcos",
+		"images": [
+			"https://res.cloudinary.com/ejikedinary/image/upload/v1677423401/yiyirqjqzq7hktyrwrtp.jpg",
+			"https://res.cloudinary.com/ejikedinary/image/upload/v1677423402/aebxpgtnacjys8nq8upv.jpg"
+		],
+		"cloudinary_id": ["yiyirqjqzq7hktyrwrtp", "aebxpgtnacjys8nq8upv"],
+		"isLimitedCompany": true,
+		"officeAddress": "Glendale workspaces, Babatope Bejide close, Lekki Phase 1",
+		"email": "chiboka.e@blueflameengineering.com",
+		"website": "www.blueflameengineering.com",
+		"officePhone": 8022224537,
+		"mobilePhone": 8022224537,
+		"isDrivingLicense": true,
+		"completed": true
+	},
+	{
+		"name": "Frank",
+		"surname": "Okenla",
+		"companyName": "Etcetera Engineering Limited",
+		"images": [
+			"https://res.cloudinary.com/ejikedinary/image/upload/v1677423569/joayoaq1g2vh2b3bgtym.jpg",
+			"https://res.cloudinary.com/ejikedinary/image/upload/v1677423574/zjgjmt6vsqp9xqyovzku.jpg",
+			"https://res.cloudinary.com/ejikedinary/image/upload/v1677423578/mcwqolniomtvec0yz2mi.jpg"
+		],
+		"cloudinary_id": [
+			"joayoaq1g2vh2b3bgtym",
+			"zjgjmt6vsqp9xqyovzku",
+			"mcwqolniomtvec0yz2mi"
+		],
+		"isIndividualCompany": true,
+		"officeAddress": "14B Sabon Gari, Sabo Yaba, Yaba, Lagos",
+		"email": "frank.o@etcetera.com",
+		"website": "www.etcetera.com",
+		"officePhone": 8099904437,
+		"mobilePhone": 8045890123,
+		"isVotersId": true,
+		"completed": true
+	}
+]
