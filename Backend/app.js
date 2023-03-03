@@ -10,12 +10,18 @@ require('dotenv').config();
 const notFound = require('./middleware/not-found');
 const errorHandler = require('./middleware/errorHandler');
 const port = require('./config/environment');
+const corsOptions = {
+	origin: '*',
+	credentials: true,
+	optionSuccessStatus: 200,
+};
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // middleware
 app.use(express.json());
-app.use(cors(app));
+app.use(cors());
+app.use(cors(corsOptions));
 // default route must always be above app.use(notFound)
 app.get('/', (req, res) => {
 	res.send('Airtel Registration Portal');
