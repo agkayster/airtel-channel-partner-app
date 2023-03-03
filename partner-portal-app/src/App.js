@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { axiosInstance } from './utils/API';
 import { formTemplate } from './template/template';
 import { useLocalStorage } from './utils/useLocalStorage';
@@ -48,7 +47,6 @@ function App() {
 		*/
 		const form = new FormData();
 		Object.values(formData.image).forEach((file, index) => {
-			// console.log('get image file => ', file);
 			form.append('image', file);
 		});
 		form.append('name', formData.name);
@@ -88,7 +86,6 @@ function App() {
 				setIsLoading(false);
 			}
 		} catch (error) {
-			console.log('get error =>', error);
 			setError({ error: error.response.data.error.errors });
 		}
 	};
