@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors(app));
 // default route must always be above app.use(notFound)
 app.get('/', (req, res) => {
 	res.send('Airtel Registration Portal');
