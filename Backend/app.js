@@ -11,7 +11,7 @@ const notFound = require('./middleware/not-found');
 const errorHandler = require('./middleware/errorHandler');
 const port = require('./config/environment');
 const corsOptions = {
-	origin: 'http://localhost:5000',
+	origin: 'http://localhost:3000',
 	credentials: true,
 	optionsSuccessStatus: 200,
 };
