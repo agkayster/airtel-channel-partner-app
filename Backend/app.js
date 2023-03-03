@@ -10,25 +10,38 @@ require('dotenv').config();
 const notFound = require('./middleware/not-found');
 const errorHandler = require('./middleware/errorHandler');
 const port = require('./config/environment');
-const corsOptions = {
-	origin: 'http://localhost:3000',
-	credentials: true,
-	optionsSuccessStatus: 200,
-};
+// const corsOptions = {
+// 	origin: 'http://localhost:3000',
+// 	credentials: true,
+// 	optionsSuccessStatus: 200,
+// };
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // middleware
 app.use(express.json());
 app.use(cors());
-app.use(cors(corsOptions));
+app.use(function (req, res, next) {
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5000');
+	res.setHeader(
+		'Access-Control-Allow-Methods',
+		'GET, POST, OPTIONS, PUT, PATCH, DELETE'
+	);
+	res.setHeader(
+		'Access-Control-Allow-Headers',
+		'X-Requested-With, content-type'
+	);
+	res.setHeader('Access-Control-Allow-Credentials', 'true');
+	next();
+});
+// app.use(cors(corsOptions));
 // default route must always be above app.use(notFound)
 app.get('/', (req, res) => {
 	res.send('Airtel Registration Portal');
 });
 
 //Routes
-app.use('/api/v1/registrations', cors(corsOptions), registrationsRouter);
+app.use('/api/v1/registrations', registrationsRouter);
 // non-existent routes
 app.use(notFound);
 // catching errors after asyncwrapper
