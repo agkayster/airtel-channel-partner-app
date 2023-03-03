@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from "axios"
+import axios from 'axios';
 import { axiosInstance } from './utils/API';
 import { formTemplate } from './template/template';
 import { useLocalStorage } from './utils/useLocalStorage';
@@ -75,7 +75,7 @@ function App() {
 
 		try {
 			setIsLoading(true);
-			const { data } = await axios.post(`${url}`, form, {
+			const { data } = await axiosInstance.post(`${url}`, form, {
 				headers: {
 					'content-type': 'multipart/form-data',
 					// 'Access-Control-Allow-Origin': 'http://localhost:5000',
