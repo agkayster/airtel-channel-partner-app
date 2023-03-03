@@ -12,7 +12,7 @@ function App() {
 	const [formCheckBox, setFormCheckBox] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 
-	const [formData, setFormData] = useLocalStorage('formData', {
+	const [formData, setFormData] = useState({
 		name: '',
 		surname: '',
 		companyName: '',
@@ -204,16 +204,16 @@ function App() {
 						{error.error.companyName.message}
 					</small>
 				)}
-				<p className='mt-4 px-3'>What type of business do you own</p>
+				<p className="mt-4 px-3 after:content-['*'] after:ml-0.5 after:text-red-500">
+					What type of business do you own
+				</p>
 				{businessCheckBox && businessCheckBox.length > 1 && (
 					<h1 className='px-3 text-red-600'>
 						Please pick tick only one business type
 					</h1>
 				)}
 				<label className='px-3 flex mt-4' htmlFor='default-checkbox'>
-					<span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-						{formTemplate.isIndividualCompany}
-					</span>
+					<span>{formTemplate.isIndividualCompany}</span>
 					<input
 						id='default-checkbox'
 						type='checkbox'
@@ -226,9 +226,7 @@ function App() {
 					/>
 				</label>
 				<label className='px-3 flex mt-4' htmlFor='default-checkbox'>
-					<span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-						{formTemplate.isProprietorshipCompany}
-					</span>
+					<span>{formTemplate.isProprietorshipCompany}</span>
 					<input
 						id='default-checkbox'
 						type='checkbox'
@@ -244,9 +242,7 @@ function App() {
 					/>
 				</label>
 				<label className='px-3 flex mt-4' htmlFor='default-checkbox'>
-					<span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-						{formTemplate.isPartnershipCompany}
-					</span>
+					<span>{formTemplate.isPartnershipCompany}</span>
 					<input
 						id='default-checkbox'
 						type='checkbox'
@@ -262,9 +258,7 @@ function App() {
 					/>
 				</label>
 				<label className='px-3 flex mt-4' htmlFor='default-checkbox'>
-					<span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-						{formTemplate.isLimitedCompany}
-					</span>
+					<span>{formTemplate.isLimitedCompany}</span>
 					<input
 						id='default-checkbox'
 						type='checkbox'
@@ -276,11 +270,11 @@ function App() {
 						className='w-4 h-4 mt-0.5 ml-4 text-blue-600 bg-gray-100 border-blue-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
 					/>
 				</label>
-				<p className='mt-4 px-3'>Form of Identification</p>
+				<p className="mt-4 px-3 after:content-['*'] after:ml-0.5 after:text-red-500">
+					Form of Identification
+				</p>
 				<label className='px-3 flex mt-4' htmlFor='default-checkbox'>
-					<span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-						{formTemplate.isDrivingLicense}
-					</span>
+					<span>{formTemplate.isDrivingLicense}</span>
 					<input
 						id='default-checkbox'
 						type='checkbox'
@@ -293,9 +287,7 @@ function App() {
 					/>
 				</label>
 				<label className='px-3 flex mt-4' htmlFor='default-checkbox'>
-					<span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-						{formTemplate.isVotersId}
-					</span>
+					<span>{formTemplate.isVotersId}</span>
 					<input
 						id='default-checkbox'
 						type='checkbox'
@@ -308,9 +300,7 @@ function App() {
 					/>
 				</label>
 				<label className='px-3 flex mt-4' htmlFor='default-checkbox'>
-					<span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-						{formTemplate.isInternationalPassport}
-					</span>
+					<span>{formTemplate.isInternationalPassport}</span>
 					<input
 						id='default-checkbox'
 						type='checkbox'
