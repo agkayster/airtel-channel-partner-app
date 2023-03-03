@@ -8,6 +8,7 @@ function App() {
 	const [error, setError] = useState({});
 	const [message, setMessage] = useState('');
 	const [businessCheckBox, setBusinessCheckbox] = useState([]);
+	const [formCheckBox, setFormCheckBox] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 
 	const [formData, setFormData] = useLocalStorage('formData', {
@@ -41,7 +42,6 @@ function App() {
 		if (businessCheckBox.length > 1) {
 			return;
 		}
-
 		/*FormData appends all our data we want to send to the backend
 		this combines both images and regular data
 		*/
