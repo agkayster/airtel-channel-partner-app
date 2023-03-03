@@ -138,7 +138,7 @@ function App() {
 	return (
 		<div className='bg-gray-200'>
 			<h1 className='text-3xl pt-3 text-center font-["Source_Serif_Pro"] text-red-500 font-bold underline'>
-				AIRTEL CHANNEL PARTNER ONLINE FORM
+				AIRTEL CHANNEL PARTNER SMART CASH ONLINE FORM
 			</h1>
 			<form className='mt-4 pb-4' onSubmit={handleFormSubmit}>
 				<label className='block px-3'>
