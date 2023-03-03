@@ -27,14 +27,17 @@ app.use(function (req, res, next) {
 		'https://airtel-channel-partner-app.vercel.app'
 	);
 	res.setHeader(
-		'Access-Control-Allow-Methods',
-		'GET, POST, OPTIONS, PUT, PATCH, DELETE'
-	);
-	res.setHeader(
 		'Access-Control-Allow-Headers',
 		'Origin, X-Requested-With, Content-Type, Accept'
 	);
-	res.setHeader('Access-Control-Allow-Credentials', 'true');
+	res.setHeader('Access-Control-Allow-Credentials', true);
+	if (req.method === 'OPTIONS') {
+		res.setHeader(
+			'Access-Control-Allow-Methods',
+			'GET, POST, PUT, PATCH, DELETE'
+		);
+		return res.json({});
+	}
 	next();
 });
 // app.use(cors(corsOptions));
