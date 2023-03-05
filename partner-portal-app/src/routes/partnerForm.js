@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-// import { axiosInstance } from './utils/API';
-import { formTemplate } from './template/template';
+import { axiosInstance } from '../utils/API';
+import { formTemplate } from '../template/template';
 
 function PartnerForm() {
 	const url = process.env.REACT_APP_API_STRING;
