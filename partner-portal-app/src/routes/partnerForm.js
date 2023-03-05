@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { axiosInstance } from '../utils/API';
 import { formTemplate } from '../template/template';
+import { useNavigate } from 'react-router-dom';
 
 function PartnerForm() {
 	const url = process.env.REACT_APP_API_STRING;
@@ -30,6 +31,8 @@ function PartnerForm() {
 		isInternationalPassport: false,
 		completed: false,
 	});
+
+	const navigate = useNavigate();
 
 	const handleFormFiles = (e, field) => {
 		const { files } = e.target;
@@ -88,6 +91,7 @@ function PartnerForm() {
 				setMessage('update successfull...');
 				setFormData(data);
 				setIsLoading(false);
+				navigate('/success');
 			}
 		} catch (error) {
 			console.log('check error=>', error);

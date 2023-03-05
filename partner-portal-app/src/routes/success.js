@@ -1,7 +1,8 @@
 import React from 'react';
 
-const Success = () => {
+const SuccessPage = () => {
 	return <div>Hello World</div>;
 };
 
-export default Success;
+export default SuccessPage;
+	
