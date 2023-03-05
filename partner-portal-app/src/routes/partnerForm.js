@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { axiosInstance } from './utils/API';
+// import { axiosInstance } from './utils/API';
 import { formTemplate } from './template/template';
 
 function PartnerForm() {
@@ -8,7 +8,7 @@ function PartnerForm() {
 	const [error, setError] = useState({});
 	const [message, setMessage] = useState('');
 	const [businessCheckBox, setBusinessCheckbox] = useState([]);
-	const [formCheckBox, setFormCheckBox] = useState(false);
+	// const [formCheckBox, setFormCheckBox] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 
 	const [formData, setFormData] = useState({
