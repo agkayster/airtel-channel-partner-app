@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const SuccessPage = () => {
 	return (
 		<div className='bg-gray-200 h-screen relative'>
-			<div className='border-2 text-center text-white rounded-t-xl h-52 mx-4 bg-red-400 absolute top-24 inset-x-px z-10'>
+			<div className='border-none text-center text-white rounded-t-xl h-52 mx-4 bg-red-400 absolute top-24 inset-x-px z-10'>
 				<IconContext.Provider value={{ size: '50px' }}>
 					<VscCheckAll
 						style={{
@@ -22,7 +22,7 @@ const SuccessPage = () => {
 					Click on the button below to go back to the Airtel portal
 				</p>
 			</div>
-			<div className='border-2 rounded-b h-52 mx-4 bg-white absolute top-60 inset-x-px z-0'>
+			<div className='border-none rounded-b h-52 mx-4 bg-white absolute top-60 inset-x-px z-0'>
 				<Link to='/'>
 					<p className='border-none rounded-full text-center text-white bg-red-400 mt-20 pt-1 h-8 w-32 ml-auto mr-auto'>
 						Airtel Portal
