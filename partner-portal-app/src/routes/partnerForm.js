@@ -144,7 +144,7 @@ function PartnerForm() {
 	return (
 		<div className='bg-gray-200'>
 			<h1 className='text-3xl pt-3 text-center font-["Source_Serif_Pro"] text-red-500 font-bold underline'>
-				AIRTEL CHANNEL PARTNER SMART CASH ONLINE FORM
+				AIRTEL SMART CASH CHANNEL PARTNER ONLINE FORM
 			</h1>
 			<form className='mt-4 pb-4' onSubmit={handleFormSubmit}>
 				<label className='block px-3'>
@@ -201,7 +201,7 @@ function PartnerForm() {
 						{error.error.companyName.message}
 					</small>
 				)}
-				<p className="mt-4 px-3 after:content-['*'] after:ml-0.5 after:text-red-500">
+				<p className="mt-4 font-bold px-3 after:content-['*'] after:ml-0.5 after:text-red-500">
 					What type of business do you own
 				</p>
 				{businessCheckBox && businessCheckBox.length > 1 && (
@@ -267,7 +267,7 @@ function PartnerForm() {
 						className='w-4 h-4 mt-0.5 ml-4 text-blue-600 bg-gray-100 border-blue-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
 					/>
 				</label>
-				<p className="mt-4 px-3 after:content-['*'] after:ml-0.5 after:text-red-500">
+				<p className="mt-4 font-bold px-3 after:content-['*'] after:ml-0.5 after:text-red-500">
 					Form of Identification
 				</p>
 				<label className='px-3 flex mt-4' htmlFor='default-checkbox'>
@@ -313,7 +313,7 @@ function PartnerForm() {
 					/>
 				</label>
 				<div className='px-3 mt-4'>
-					<p>
+					<p className='font-semibold'>
 						Please upload a scanned copy of the following documents
 						below
 					</p>
@@ -428,7 +428,7 @@ function PartnerForm() {
 						{error.error.mobilePhone.message}
 					</small>
 				)}
-				<p className='mt-4 px-3'>
+				<p className='mt-4 px-2 font-semibold text-base'>
 					Kindly tick the checkbox once form is completed
 				</p>
 				<label className='px-3 flex mt-4' htmlFor='default-checkbox'>
