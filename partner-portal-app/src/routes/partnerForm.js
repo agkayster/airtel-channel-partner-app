@@ -141,9 +141,6 @@ function PartnerForm() {
 	console.log('get errors =>', error);
 	console.log('get checkbox =>', businessCheckBox);
 
-	if (isLoading) {
-		<h1>Loading...</h1>;
-	}
 	return (
 		<div className='bg-gray-200'>
 			<h1 className='text-3xl pt-3 text-center font-["Source_Serif_Pro"] text-red-500 font-bold underline'>
