@@ -37,8 +37,8 @@ code {
 .loader::before {
 	content: '';
 	position: absolute;
-	left: 0;
-	bottom: 0;
+	left: 150px;
+	top: 900px;
 	color: #ff3d00;
 	background: currentColor;
 	width: 64px;
@@ -48,8 +48,8 @@ code {
 .loader::after {
 	content: '';
 	position: absolute;
-	left: 50%;
-	top: 10%;
+	left: 180px;
+	top: 880px;
 	background: #fff;
 	width: 8px;
 	height: 64px;
