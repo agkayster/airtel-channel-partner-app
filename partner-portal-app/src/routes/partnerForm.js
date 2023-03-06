@@ -9,7 +9,7 @@ function PartnerForm() {
 	const [error, setError] = useState({});
 	const [message, setMessage] = useState('');
 	const [businessCheckBox, setBusinessCheckbox] = useState([]);
-	// const [formCheckBox, setFormCheckBox] = useState(false);
+	const [businessCheckBoxState, setBusinessCheckBoxState] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 
 	const [formData, setFormData] = useState({
@@ -41,6 +41,11 @@ function PartnerForm() {
 
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
+
+		if (businessCheckBox.length < 1) {
+			setBusinessCheckBoxState(true);
+			return;
+		}
 
 		if (businessCheckBox.length > 1) {
 			return;
@@ -201,9 +206,16 @@ function PartnerForm() {
 						{error.error.companyName.message}
 					</small>
 				)}
-				<p className="mt-4 font-bold px-3 after:content-['*'] after:ml-0.5 after:text-red-500">
-					What type of business do you own
-				</p>
+				<div>
+					<p className="mt-4 font-bold px-3 after:content-['*'] after:ml-0.5 after:text-red-500">
+						What type of business do you own
+					</p>
+					{businessCheckBoxState && (
+						<h1 className='px-3 text-red-600'>
+							Please pick tick a business type
+						</h1>
+					)}
+				</div>
 				{businessCheckBox && businessCheckBox.length > 1 && (
 					<h1 className='px-3 text-red-600'>
 						Please pick tick only one business type
