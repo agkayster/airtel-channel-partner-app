@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { axiosInstance } from '../utils/API';
+// import { axiosInstance } from '../utils/API';
 import { formTemplate } from '../template/template';
 import { useNavigate } from 'react-router-dom';
+import FormTemplate from '../template/formTemplate';
+import Button from '../components/Button';
 
 function PartnerForm() {
-	const url = process.env.REACT_APP_API_STRING;
+	// const url = process.env.REACT_APP_API_STRING;
+	const url = process.env.REACT_APP_VERCEL_FRONTEND_URL;
 	const [error, setError] = useState({});
 	const [message, setMessage] = useState('');
 	const [businessCheckBox, setBusinessCheckbox] = useState([]);
+	const [idCheckBox, setIDCheckBox] = useState([]);
 	const [businessCheckBoxState, setBusinessCheckBoxState] = useState(false);
+	const [idCheckBoxState, setIDCheckBoxState] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 
 	const [formData, setFormData] = useState({
@@ -42,14 +47,23 @@ function PartnerForm() {
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
 
+		/* if no checkbox is checked */
 		if (businessCheckBox.length < 1) {
 			setBusinessCheckBoxState(true);
 			return;
 		}
 
+		/* if multiple checkboxes are checked */
 		if (businessCheckBox.length > 1) {
 			return;
 		}
+
+		/* if no checkbox is checked */
+		if (idCheckBox.length < 1) {
+			setIDCheckBoxState(true);
+			return;
+		}
+
 		/*FormData appends all our data we want to send to the backend
 		this combines both images and regular data
 		*/
@@ -82,16 +96,13 @@ function PartnerForm() {
 
 		try {
 			setIsLoading(true);
-			const { data } = await axios.post(
-				'https://airtel-channel-partner-app-backend.vercel.app/api/v1/registrations',
-				form,
-				{
-					headers: {
-						'content-type': 'multipart/form-data',
-					},
-				}
-			);
-			console.log('get updated data =>', data);
+			/* using the url variable above */
+			const { data } = await axios.post(`${url}`, form, {
+				headers: {
+					'content-type': 'multipart/form-data',
+				},
+			});
+			// console.log('get updated data =>', data);
 			if (data) {
 				setMessage('update successfull...');
 				setFormData(data);
@@ -99,7 +110,7 @@ function PartnerForm() {
 				navigate('/success');
 			}
 		} catch (error) {
-			console.log('check error=>', error);
+			// console.log('check error=>', error);
 			setError({ error: error.response.data.error.errors });
 			setIsLoading(false);
 		}
@@ -115,9 +126,11 @@ function PartnerForm() {
 		const checkedBox = [];
 		setFormData({ ...formData, [field]: checked });
 		if (checked === true) {
+			/* allows know checkboxes that have been checked by pushing them into an array */
 			checkedBox.push(field);
 		} else {
-			console.log('get field =>', businessCheckBox.indexOf(field));
+			// console.log('get field =>', businessCheckBox.indexOf(field));
+			/* when checkboxes are unchecked */
 			setBusinessCheckbox(
 				businessCheckBox.splice(businessCheckBox.indexOf(field), 1)
 			);
@@ -127,7 +140,16 @@ function PartnerForm() {
 
 	const handleIdentificationCheckbox = (e, field) => {
 		const { checked } = e.target;
+		const checkedIdBox = [];
 		setFormData({ ...formData, [field]: checked });
+		if (checked) {
+			/* allows know checkboxes that have been checked by pushing them into an array */
+			checkedIdBox.push(field);
+		} else {
+			/* when checkboxes are unchecked */
+			setIDCheckBox(idCheckBox.splice(idCheckBox.indexOf(field), 1));
+		}
+		setIDCheckBox([...idCheckBox, ...checkedIdBox]);
 	};
 
 	const handleFormCheckbox = (e, field) => {
@@ -135,80 +157,50 @@ function PartnerForm() {
 		setFormData({ ...formData, [field]: checked });
 	};
 
-	// useEffect(() => {
-	// 	(async () => {
-	// 		let res = await axiosInstance.get(`/api/v1/registrations`);
-	// 		setData(res.data);
-	// 	})();
-	// }, []);
-
 	console.log('get form data =>', formData);
 	console.log('get message =>', message);
 	console.log('get errors =>', error);
-	console.log('get checkbox =>', businessCheckBox);
+	// console.log('get checkbox =>', businessCheckBox);
+	console.log('get id checkbox =>', idCheckBox);
 
 	return (
 		<>
-			{/* {isLoading && <span className='loader'></span>} */}
 			<div className='bg-gray-200'>
 				<h1 className='text-3xl pt-3 text-center font-["Source_Serif_Pro"] text-red-500 font-bold underline'>
 					AIRTEL SMART CASH CHANNEL PARTNER ONLINE FORM
 				</h1>
 				<form className='mt-4 pb-4' onSubmit={handleFormSubmit}>
-					<label className='block px-3'>
-						<span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-							{formTemplate.name}
-						</span>
-						<input
-							type='text'
-							name='name'
-							value={formData.name || ''}
-							onChange={(e) => handleFormChange(e, 'name')}
-							className='mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'
-							placeholder={`Enter your ${formTemplate.name}`}
+					<FormTemplate
+						formTemplateProps={formTemplate.name}
+						formDataProps={formData.name}
+						handleProps={handleFormChange}
+						nameProps='name'
+						typeProps='text'
+						errorProps={error?.error?.name}
+					/>
+
+					<div className='mt-3'>
+						<FormTemplate
+							formTemplateProps={formTemplate.surname}
+							formDataProps={formData.surname}
+							handleProps={handleFormChange}
+							nameProps='surname'
+							typeProps='text'
+							errorProps={error?.error?.surname}
 						/>
-					</label>
-					{error?.error?.name && (
-						<small className='text-red-500 pl-4 font-bold'>
-							{error.error.name.message}
-						</small>
-					)}
-					<label className='block px-3 mt-4'>
-						<span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-							{formTemplate.surname}
-						</span>
-						<input
-							type='text'
-							name='surname'
-							value={formData.surname || ''}
-							onChange={(e) => handleFormChange(e, 'surname')}
-							className='mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'
-							placeholder={`Enter your ${formTemplate.surname}`}
+					</div>
+
+					<div className='mt-3'>
+						<FormTemplate
+							formTemplateProps={formTemplate.companyName}
+							formDataProps={formData.companyName}
+							handleProps={handleFormChange}
+							nameProps='companyName'
+							typeProps='text'
+							errorProps={error?.error?.companyName}
 						/>
-					</label>
-					{error?.error?.surname && (
-						<small className='text-red-500 pl-4 font-bold'>
-							{error.error.surname.message}
-						</small>
-					)}
-					<label className='block px-3 mt-4'>
-						<span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-							{formTemplate.companyName}
-						</span>
-						<input
-							type='text'
-							name='companyName'
-							value={formData.companyName || ''}
-							onChange={(e) => handleFormChange(e, 'companyName')}
-							className='mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'
-							placeholder={`Enter your ${formTemplate.companyName}`}
-						/>
-					</label>
-					{error?.error?.companyName && (
-						<small className='text-red-500 pl-4 font-bold'>
-							{error.error.companyName.message}
-						</small>
-					)}
+					</div>
+
 					<div>
 						<p className="mt-4 font-bold px-3 after:content-['*'] after:ml-0.5 after:text-red-500">
 							What type of business do you own
@@ -296,9 +288,16 @@ function PartnerForm() {
 							className='w-4 h-4 mt-0.5 ml-4 text-blue-600 bg-gray-100 border-blue-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
 						/>
 					</label>
-					<p className="mt-4 font-bold px-3 after:content-['*'] after:ml-0.5 after:text-red-500">
-						Form of Identification
-					</p>
+					<div>
+						<p className="mt-4 font-bold px-3 after:content-['*'] after:ml-0.5 after:text-red-500">
+							Form of Identification
+						</p>
+						{idCheckBoxState && (
+							<h1 className='px-3 text-red-600'>
+								Please tick a form of id
+							</h1>
+						)}
+					</div>
 					<label
 						className='px-3 flex mt-4'
 						htmlFor='default-checkbox'>
@@ -380,63 +379,39 @@ function PartnerForm() {
 							{error.error.files.message}
 						</small>
 					)}
+					<div className='mt-3'>
+						<FormTemplate
+							formTemplateProps={formTemplate.officeAddress}
+							formDataProps={formData.officeAddress}
+							handleProps={handleFormChange}
+							nameProps='officeAddress'
+							typeProps='text'
+							errorProps={error?.error?.officeAddress}
+						/>
+					</div>
 
-					<label className='block px-3 mt-4'>
-						<span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-							{formTemplate.officeAddress}
-						</span>
-						<input
-							type='text'
-							name='officeAddress'
-							value={formData.officeAddress || ''}
-							onChange={(e) =>
-								handleFormChange(e, 'officeAddress')
-							}
-							className='mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'
-							placeholder={`Enter your ${formTemplate.officeAddress}`}
+					<div className='mt-3'>
+						<FormTemplate
+							formTemplateProps={formTemplate.email}
+							formDataProps={formData.email}
+							handleProps={handleFormChange}
+							nameProps='email'
+							typeProps='text'
+							errorProps={error?.error?.email}
 						/>
-					</label>
-					{error?.error?.officeAddress && (
-						<small className='text-red-500 pl-4 font-bold'>
-							{error.error.officeAddress.message}
-						</small>
-					)}
-					<label className='block px-3 mt-4'>
-						<span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-							{formTemplate.email}
-						</span>
-						<input
-							type='text'
-							name='email'
-							value={formData.email || ''}
-							onChange={(e) => handleFormChange(e, 'email')}
-							className='mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'
-							placeholder={`Enter your ${formTemplate.email}`}
+					</div>
+
+					<div className='mt-3'>
+						<FormTemplate
+							formTemplateProps={formTemplate.website}
+							formDataProps={formData.website}
+							handleProps={handleFormChange}
+							nameProps='website'
+							typeProps='text'
+							errorProps={error?.error?.website}
 						/>
-					</label>
-					{error?.error?.email && (
-						<small className='text-red-500 pl-4 font-bold'>
-							{error.error.email.message}
-						</small>
-					)}
-					<label className='block px-3 mt-4'>
-						<span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-							{formTemplate.website}
-						</span>
-						<input
-							type='text'
-							name='website'
-							value={formData.website || ''}
-							onChange={(e) => handleFormChange(e, 'website')}
-							className='mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'
-							placeholder={`Enter your ${formTemplate.website}`}
-						/>
-					</label>
-					{error?.error?.website && (
-						<small className='text-red-500 pl-4 font-bold'>
-							{error.error.website.message}
-						</small>
-					)}
+					</div>
+
 					<label className='block px-3 mt-4'>
 						<span className='after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700'>
 							{formTemplate.officePhone}
@@ -450,24 +425,17 @@ function PartnerForm() {
 							placeholder={`Enter your ${formTemplate.officePhone}`}
 						/>
 					</label>
-					<label className='block px-3 mt-4'>
-						<span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-							{formTemplate.mobilePhone}
-						</span>
-						<input
-							type='text'
-							name='mobilePhone'
-							value={formData.mobilePhone || ''}
-							onChange={(e) => handleFormChange(e, 'mobilePhone')}
-							className='mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'
-							placeholder={`Enter your ${formTemplate.mobilePhone}`}
+					<div className='mt-3'>
+						<FormTemplate
+							formTemplateProps={formTemplate.mobilePhone}
+							formDataProps={formData.mobilePhone}
+							handleProps={handleFormChange}
+							nameProps='mobilePhone'
+							typeProps='text'
+							errorProps={error?.error?.mobilePhone}
 						/>
-					</label>
-					{error?.error?.mobilePhone && (
-						<small className='text-red-500 pl-4 font-bold'>
-							{error.error.mobilePhone.message}
-						</small>
-					)}
+					</div>
+
 					<p className='mt-4 px-2 font-semibold text-base'>
 						Kindly tick the checkbox once form is completed
 					</p>
@@ -492,40 +460,11 @@ function PartnerForm() {
 							{error.error.completed.message}
 						</small>
 					)}
-					{isLoading ? (
-						<div className='flex flex-col items-center justify-center'>
-							<button
-								disabled
-								type='submit'
-								className='focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 z-10 mt-6'>
-								<svg
-									aria-hidden='true'
-									role='status'
-									className='inline w-4 h-4 mr-3 text-gray-200 animate-spin dark:text-gray-600'
-									viewBox='0 0 100 101'
-									fill='none'
-									xmlns='http://www.w3.org/2000/svg'>
-									<path
-										d='M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z'
-										fill='currentColor'
-									/>
-									<path
-										d='M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z'
-										fill='#1C64F2'
-									/>
-								</svg>
-								Submitting...
-							</button>
-						</div>
-					) : (
-						<div className='flex flex-col items-center justify-center'>
-							<button
-								type='submit'
-								className='focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 z-0 mb-2 mt-4'>
-								Submit
-							</button>
-						</div>
-					)}
+					<Button
+						submit='Submit'
+						submitting='Submitting...'
+						isLoading={isLoading}
+					/>
 				</form>
 			</div>
 		</>
