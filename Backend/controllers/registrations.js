@@ -7,9 +7,12 @@ const cloudinary = require('cloudinary').v2;
 const getRegistrations = async (req, res) => {
 	// console.log('get query =>', req.query);
 	const {
-		name,
-		surname,
+		fullNamesOfDirector1,
+		fullNamesOfDirector2,
 		companyName,
+		taxIdentificationNumber,
+		bvnOfDirector1,
+		bvnOfDirector2,
 		isIndividualCompany,
 		isProprietorshipCompany,
 		isPartnershipCompany,
@@ -23,14 +26,23 @@ const getRegistrations = async (req, res) => {
 	} = req.query;
 	const queryObject = {};
 
-	if (name) {
-		queryObject.name = { $regex: name, $options: 'i' };
+	if (fullNamesOfDirector1) {
+		queryObject.name = { $regex: fullNamesOfDirector, $options: 'i' };
 	}
-	if (surname) {
+	if (fullNamesOfDirector2) {
 		queryObject.surname = { $regex: surname, $options: 'i' };
 	}
 	if (companyName) {
 		queryObject.companyName = companyName;
+	}
+	if (taxIdentificationNumber) {
+		queryObject.taxIdentificationNumber = taxIdentificationNumber;
+	}
+	if (bvnOfDirector1) {
+		queryObject.bvnOfDirector1 = bvnOfDirector1;
+	}
+	if (bvnOfDirector2) {
+		queryObject.bvnOfDirector2 = bvnOfDirector2;
 	}
 	if (isIndividualCompany) {
 		queryObject.isIndividualCompany =

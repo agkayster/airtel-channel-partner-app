@@ -1,21 +1,33 @@
 const mongoose = require('mongoose');
 
 const RegistrationSchema = new mongoose.Schema({
-	name: {
+	fullNamesOfDirector1: {
 		type: String,
 		required: [true, 'please fill in your name'],
 		trim: true,
 		maxLength: [20, 'name must not be more than 20 chanracters'],
 	},
-	surname: {
+	fullNamesOfDirector2: {
 		type: String,
-		required: [true, 'please fill in your surname'],
+		required: [true, 'please fill in your name'],
 		trim: true,
 		maxLength: [20, 'name must not be more than 20 chanracters'],
 	},
 	companyName: {
 		type: String,
 		required: [true, 'please fill in the company name'],
+	},
+	taxIdentificationNumber: {
+		type: Number,
+		required: [true, 'please fill in the TIN'],
+	},
+	bvnOfDirector1: {
+		type: Number,
+		required: [true, 'please fill in the BVN'],
+	},
+	bvnOfDirector2: {
+		type: Number,
+		required: [true, 'please fill in the BVN'],
 	},
 	avatar: {
 		type: [String],

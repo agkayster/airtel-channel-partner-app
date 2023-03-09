@@ -3,6 +3,8 @@ import axios from 'axios';
 // import { axiosInstance } from '../utils/API';
 import { formTemplate } from '../template/template';
 import { useNavigate } from 'react-router-dom';
+import { companyRequirements } from '../template/template';
+import { signatoryRequirements } from '../template/template';
 import FormTemplate from '../template/formTemplate';
 import Button from '../components/Button';
 
@@ -18,8 +20,11 @@ function PartnerForm() {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const [formData, setFormData] = useState({
-		name: '',
-		surname: '',
+		fullNamesOfDirector1: '',
+		fullNamesOfDirector2: '',
+		taxIdentificationNumber: '',
+		bvnOfDirector1: '',
+		bvnOfDirector2: '',
 		companyName: '',
 		image: '',
 		isIndividualCompany: false,
@@ -71,8 +76,14 @@ function PartnerForm() {
 		Object.values(formData.image).forEach((file, index) => {
 			form.append('image', file);
 		});
-		form.append('name', formData.name);
-		form.append('surname', formData.surname);
+		form.append('fullNamesOfDirector1', formData.fullNamesOfDirector1);
+		form.append('fullNamesOfDirector2', formData.fullNamesOfDirector2);
+		form.append(
+			'taxIdentificationNumber',
+			formData.taxIdentificationNumber
+		);
+		form.append('bvnOfDirector1', formData.bvnOfDirector1);
+		form.append('bvnOfDirector2', formData.bvnOfDirector2);
 		form.append('companyName', formData.companyName);
 		form.append('email', formData.email);
 		form.append('isIndividualCompany', formData.isIndividualCompany);
@@ -171,36 +182,69 @@ function PartnerForm() {
 				</h1>
 				<form className='mt-4 pb-4' onSubmit={handleFormSubmit}>
 					<FormTemplate
-						formTemplateProps={formTemplate.name}
-						formDataProps={formData.name}
+						formTemplateProps={formTemplate.companyName}
+						formDataProps={formData.companyName}
 						handleProps={handleFormChange}
-						nameProps='name'
+						nameProps='companyName'
 						typeProps='text'
-						errorProps={error?.error?.name}
+						errorProps={error?.error?.companyName}
 					/>
-
 					<div className='mt-3'>
 						<FormTemplate
-							formTemplateProps={formTemplate.surname}
-							formDataProps={formData.surname}
+							formTemplateProps={
+								formTemplate.taxIdentificationNumber
+							}
+							formDataProps={formData.taxIdentificationNumber}
 							handleProps={handleFormChange}
-							nameProps='surname'
+							nameProps='taxIdentificationNumber'
 							typeProps='text'
-							errorProps={error?.error?.surname}
+							errorProps={error?.error?.taxIdentificationNumber}
 						/>
 					</div>
-
 					<div className='mt-3'>
 						<FormTemplate
-							formTemplateProps={formTemplate.companyName}
-							formDataProps={formData.companyName}
+							formTemplateProps={
+								formTemplate.fullNamesOfDirector1
+							}
+							formDataProps={formData.fullNamesOfDirector1}
 							handleProps={handleFormChange}
-							nameProps='companyName'
+							nameProps='fullNamesOfDirector1'
 							typeProps='text'
-							errorProps={error?.error?.companyName}
+							errorProps={error?.error?.fullNamesOfDirector1}
 						/>
 					</div>
-
+					<div className='mt-3'>
+						<FormTemplate
+							formTemplateProps={
+								formTemplate.fullNamesOfDirector2
+							}
+							formDataProps={formData.fullNamesOfDirector2}
+							handleProps={handleFormChange}
+							nameProps='fullNamesOfDirector2'
+							typeProps='text'
+							errorProps={error?.error?.fullNamesOfDirector2}
+						/>
+					</div>
+					<div className='mt-3'>
+						<FormTemplate
+							formTemplateProps={formTemplate.bvnOfDirector1}
+							formDataProps={formData.bvnOfDirector1}
+							handleProps={handleFormChange}
+							nameProps='bvnOfDirector1'
+							typeProps='text'
+							errorProps={error?.error?.bvnOfDirector1}
+						/>
+					</div>
+					<div className='mt-3'>
+						<FormTemplate
+							formTemplateProps={formTemplate.bvnOfDirector2}
+							formDataProps={formData.bvnOfDirector2}
+							handleProps={handleFormChange}
+							nameProps='bvnOfDirector2'
+							typeProps='text'
+							errorProps={error?.error?.bvnOfDirector2}
+						/>
+					</div>
 					<div>
 						<p className="mt-4 font-bold px-3 after:content-['*'] after:ml-0.5 after:text-red-500">
 							What type of business do you own
@@ -352,13 +396,23 @@ function PartnerForm() {
 					<div className='px-3 mt-4'>
 						<p className='font-semibold'>
 							Please upload a scanned copy of the following
-							documents below
+							documents below:
 						</p>
+						<h1 className='font-bold mt-4'>COMPANY REQUIREMENTS</h1>
 						<ul className='list-disc list-inside'>
-							<li>CAC 7</li>
-							<li>CAC 8</li>
-							<li>Passport Picture</li>
-							<li>Form of Identification ticked above</li>
+							{companyRequirements.map(({ id, requirement }) => (
+								<li key={id}>{requirement}</li>
+							))}
+						</ul>
+						<h1 className='font-bold mt-4'>
+							SIGNATORY REQUIREMENTS
+						</h1>
+						<ul className='list-disc list-inside'>
+							{signatoryRequirements.map(
+								({ id, requirement }) => (
+									<li key={id}>{requirement}</li>
+								)
+							)}
 						</ul>
 					</div>
 					<label className='block px-3 mt-4'>
