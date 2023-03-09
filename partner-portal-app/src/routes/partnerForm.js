@@ -489,6 +489,13 @@ function PartnerForm() {
 							errorProps={error?.error?.mobilePhone}
 						/>
 					</div>
+					<div>
+						<p className='px-3 py-3'>
+							I hereby certify that information provided in this
+							form is complete, true and to the best of my
+							knowledge
+						</p>
+					</div>
 
 					<p className='mt-4 px-2 font-semibold text-base'>
 						Kindly tick the checkbox once form is completed
