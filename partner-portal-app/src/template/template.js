@@ -5,7 +5,7 @@ export const formTemplate = {
 	bvnOfDirector1: 'BVN Of Director (1)',
 	bvnOfDirector2: 'BVN Of Director (2)',
 	companyName: 'Company Name',
-	documents: 'Documents and Passport Photograph',
+	documents: 'Documents and Passport Photograph (e.g .pdf, .jpg, .jpeg)',
 	isIndividualCompany: 'Individual Company',
 	isProprietorshipCompany: 'Proprietorship Company',
 	isPartnershipCompany: 'Partnership Company',

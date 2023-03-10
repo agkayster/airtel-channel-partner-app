@@ -176,7 +176,7 @@ function PartnerForm() {
 
 	return (
 		<>
-			<div className='bg-gray-200'>
+			<div className='bg-["#FFFAFA"]'>
 				<h1 className='text-3xl pt-3 text-center font-["Source_Serif_Pro"] text-red-500 font-bold underline'>
 					AIRTEL SMART CASH CHANNEL PARTNER ONLINE FORM
 				</h1>
@@ -189,6 +189,7 @@ function PartnerForm() {
 						typeProps='text'
 						errorProps={error?.error?.companyName}
 					/>
+
 					<div className='mt-3'>
 						<FormTemplate
 							formTemplateProps={
@@ -396,7 +397,8 @@ function PartnerForm() {
 					<div className='px-3 mt-4'>
 						<p className='font-semibold'>
 							Please upload a scanned copy of the following
-							documents below:
+							documents below. Documents must be in PDF or image
+							(e.g .pdf, .jpg,.jpeg):
 						</p>
 						<h1 className='font-bold mt-4'>COMPANY REQUIREMENTS</h1>
 						<ul className='list-disc list-inside'>
@@ -425,7 +427,7 @@ function PartnerForm() {
 							multiple
 							required
 							onChange={(e) => handleFormFiles(e, 'image')}
-							className='mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'
+							className='mt-1 px-3 py-2 bg-white border shadow-sm border-red-400 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'
 						/>
 					</label>
 					{error?.error?.files && (
@@ -465,20 +467,30 @@ function PartnerForm() {
 							errorProps={error?.error?.website}
 						/>
 					</div>
-
-					<label className='block px-3 mt-4'>
-						<span className='after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700'>
-							{formTemplate.officePhone}
-						</span>
+					<div className='relative px-3 mt-4'>
 						<input
 							type='text'
 							name='officePhone'
 							value={formData.officePhone || ''}
 							onChange={(e) => handleFormChange(e, 'officePhone')}
-							className='mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'
-							placeholder={`Enter your ${formTemplate.officePhone}`}
+							id='floating_officePhone'
+							className='block px-3 pb-2.5 pt-4 w-full text-sm text-gray-600 bg-transparent rounded-lg border-1 border-red-400 appearance-none dark:text-white dark:border-red-400 dark:focus:border-red-400 focus:outline-none focus:ring-0 focus:border-red-400 peer'
+							placeholder=' '
 						/>
-					</label>
+						<label
+							htmlFor='floating_officePhone'
+							className='absolute text-sm text-red-400 dark:text-red-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-3 peer-focus:px-2 peer-focus:text-red-400 peer-focus:dark:text-red-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-5'>
+							<span className='block text-sm font-medium text-slate-700'>
+								{formTemplate.officePhone}
+							</span>
+						</label>
+						{error?.error?.companyName && (
+							<small className='text-red-500 pl-4 font-bold'>
+								{error?.error?.officePhone.message}
+							</small>
+						)}
+					</div>
+
 					<div className='mt-3'>
 						<FormTemplate
 							formTemplateProps={formTemplate.mobilePhone}
