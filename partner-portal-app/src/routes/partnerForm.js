@@ -190,8 +190,9 @@ function PartnerForm() {
 					AIRTEL SMART CASH CHANNEL PARTNER ONLINE FORM
 				</h1>
 				<form className='mt-4 pb-4' onSubmit={handleFormSubmit}>
-					<div>
-						<div className='absolute top-[9.5rem] right-10 flex items-center pl-3 pointer-events-none md:top-20'>
+					{/* do not go below this */}
+					<div className='relative'>
+						<div className='absolute inset-y-0 right-10 flex items-center pl-3 pointer-events-none'>
 							<FontAwesomeIcon
 								icon={faRegistered}
 								style={{ color: 'red' }}
@@ -207,8 +208,8 @@ function PartnerForm() {
 						/>
 					</div>
 
-					<div className='mt-3'>
-						<div className='absolute top-[13.2rem] right-10 flex items-center pl-3 pointer-events-none md:top-36'>
+					<div className='relative mt-3'>
+						<div className='absolute inset-y-0 right-10 flex items-center pl-3 pointer-events-none'>
 							<FontAwesomeIcon
 								icon={faFileLines}
 								style={{ color: 'red' }}
@@ -226,8 +227,8 @@ function PartnerForm() {
 						/>
 					</div>
 
-					<div className='mt-3'>
-						<div className='absolute top-[17rem] right-10 flex items-center pl-3 pointer-events-none md:top-52'>
+					<div className='relative mt-3'>
+						<div className='absolute inset-y-0 right-10 flex items-center pl-3 pointer-events-none'>
 							<FontAwesomeIcon
 								icon={faCircleUser}
 								style={{ color: 'red' }}
@@ -244,8 +245,8 @@ function PartnerForm() {
 							errorProps={error?.error?.fullNamesOfDirector1}
 						/>
 					</div>
-					<div className='mt-3'>
-						<div className='absolute top-[21rem] right-10 flex items-center pl-3 pointer-events-none md:top-[16rem]'>
+					<div className='mt-3 relative'>
+						<div className='absolute inset-y-0 right-10 flex items-center pl-3 pointer-events-none'>
 							<FontAwesomeIcon
 								icon={faCircleUser}
 								style={{ color: 'red' }}
@@ -262,8 +263,8 @@ function PartnerForm() {
 							errorProps={error?.error?.fullNamesOfDirector2}
 						/>
 					</div>
-					<div className='mt-3'>
-						<div className='absolute top-[24.5rem] right-10 flex items-center pl-3 pointer-events-none md:top-[20rem]'>
+					<div className='mt-3 relative'>
+						<div className='absolute inset-y-0 right-10 flex items-center pl-3 pointer-events-none'>
 							<FontAwesomeIcon
 								icon={faThumbsUp}
 								style={{ color: 'red' }}
@@ -278,8 +279,8 @@ function PartnerForm() {
 							errorProps={error?.error?.bvnOfDirector1}
 						/>
 					</div>
-					<div className='mt-3'>
-						<div className='absolute top-[28rem] right-10 flex items-center pl-3 pointer-events-none md:top-[24rem]'>
+					<div className='mt-3 relative'>
+						<div className='absolute inset-y-0 right-10 flex items-center pl-3 pointer-events-none'>
 							<FontAwesomeIcon
 								icon={faThumbsUp}
 								style={{ color: 'red' }}
@@ -483,8 +484,8 @@ function PartnerForm() {
 							{error.error.files.message}
 						</small>
 					)}
-					<div className='mt-3'>
-						<div className='absolute -bottom-[65.5rem] right-10 flex items-center pl-3 pointer-events-none md:top-[62.5rem]'>
+					<div className='mt-3 relative'>
+						<div className='absolute inset-y-0 right-10 flex items-center pl-3 pointer-events-none'>
 							<FontAwesomeIcon
 								icon={faIndustry}
 								style={{ color: 'red' }}
@@ -500,8 +501,8 @@ function PartnerForm() {
 						/>
 					</div>
 
-					<div className='mt-3'>
-						<div className='absolute -bottom-[69rem] right-10 flex items-center pl-3 pointer-events-none md:top-[66.5rem]'>
+					<div className='mt-3 relative'>
+						<div className='absolute inset-y-0 right-10 flex items-center pl-3 pointer-events-none'>
 							<FontAwesomeIcon
 								icon={faAt}
 								style={{ color: 'red' }}
@@ -517,8 +518,8 @@ function PartnerForm() {
 						/>
 					</div>
 
-					<div className='mt-3'>
-						<div className='absolute -bottom-[72.8rem] right-10 flex items-center pl-3 pointer-events-none md:top-[70rem]'>
+					<div className='mt-3 relative'>
+						<div className='absolute inset-y-0 right-10 flex items-center pl-3 pointer-events-none'>
 							<FontAwesomeIcon
 								icon={faGlobe}
 								style={{ color: 'red' }}
@@ -534,7 +535,7 @@ function PartnerForm() {
 						/>
 					</div>
 					<div className='relative px-3 mt-4'>
-						<div className='absolute top-4 right-10 flex items-center pl-3 pointer-events-none md:-top-[0.5rem] md:bottom-0'>
+						<div className='absolute inset-y-0 right-10 flex items-center pl-3 pointer-events-none'>
 							<FontAwesomeIcon
 								icon={faPhone}
 								style={{ color: 'red' }}
@@ -563,8 +564,8 @@ function PartnerForm() {
 						)}
 					</div>
 
-					<div className='mt-3'>
-						<div className='absolute -bottom-[80.5rem] right-10 flex items-center pl-3 pointer-events-none md:top-[102rem] md:bottom-0'>
+					<div className='mt-3 relative'>
+						<div className='absolute inset-y-0 right-10 flex items-center pl-3 pointer-events-none'>
 							<FontAwesomeIcon
 								icon={faPhone}
 								style={{ color: 'red' }}
