@@ -1,4 +1,4 @@
-export const formTemplate = {
+const formTemplate = {
 	fullNamesOfDirector1: 'Name Of Director (1)',
 	fullNamesOfDirector2: 'Name Of Director (2)',
 	taxIdentificationNumber: 'Tax Identification Number (TIN)',
@@ -20,6 +20,7 @@ export const formTemplate = {
 	isInternationalPassport: 'International Passport',
 	completed: 'Completed',
 };
+export { formTemplate };
 
 const companyRequirements = [
 	{

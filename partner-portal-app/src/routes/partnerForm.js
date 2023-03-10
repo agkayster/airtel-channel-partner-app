@@ -3,10 +3,19 @@ import axios from 'axios';
 // import { axiosInstance } from '../utils/API';
 import { formTemplate } from '../template/template';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { companyRequirements } from '../template/template';
 import { signatoryRequirements } from '../template/template';
 import FormTemplate from '../template/formTemplate';
 import Button from '../components/Button';
+import { faAt } from '@fortawesome/free-solid-svg-icons';
+import { faIndustry } from '@fortawesome/free-solid-svg-icons';
+import { faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp } from '@fortawesome/free-regular-svg-icons';
+import { faCircleUser } from '@fortawesome/free-regular-svg-icons';
+import { faFileLines } from '@fortawesome/free-solid-svg-icons';
+import { faRegistered } from '@fortawesome/free-solid-svg-icons';
 
 function PartnerForm() {
 	// const url = process.env.REACT_APP_API_STRING;
@@ -181,16 +190,30 @@ function PartnerForm() {
 					AIRTEL SMART CASH CHANNEL PARTNER ONLINE FORM
 				</h1>
 				<form className='mt-4 pb-4' onSubmit={handleFormSubmit}>
-					<FormTemplate
-						formTemplateProps={formTemplate.companyName}
-						formDataProps={formData.companyName}
-						handleProps={handleFormChange}
-						nameProps='companyName'
-						typeProps='text'
-						errorProps={error?.error?.companyName}
-					/>
+					<div>
+						<div className='absolute top-[9.5rem] right-10 flex items-center pl-3 pointer-events-none md:top-20'>
+							<FontAwesomeIcon
+								icon={faRegistered}
+								style={{ color: 'red' }}
+							/>
+						</div>
+						<FormTemplate
+							formTemplateProps={formTemplate.companyName}
+							formDataProps={formData.companyName}
+							handleProps={handleFormChange}
+							nameProps='companyName'
+							typeProps='text'
+							errorProps={error?.error?.companyName}
+						/>
+					</div>
 
 					<div className='mt-3'>
+						<div className='absolute top-[13.2rem] right-10 flex items-center pl-3 pointer-events-none md:top-36'>
+							<FontAwesomeIcon
+								icon={faFileLines}
+								style={{ color: 'red' }}
+							/>
+						</div>
 						<FormTemplate
 							formTemplateProps={
 								formTemplate.taxIdentificationNumber
@@ -202,7 +225,14 @@ function PartnerForm() {
 							errorProps={error?.error?.taxIdentificationNumber}
 						/>
 					</div>
+
 					<div className='mt-3'>
+						<div className='absolute top-[17rem] right-10 flex items-center pl-3 pointer-events-none md:top-52'>
+							<FontAwesomeIcon
+								icon={faCircleUser}
+								style={{ color: 'red' }}
+							/>
+						</div>
 						<FormTemplate
 							formTemplateProps={
 								formTemplate.fullNamesOfDirector1
@@ -215,6 +245,12 @@ function PartnerForm() {
 						/>
 					</div>
 					<div className='mt-3'>
+						<div className='absolute top-[21rem] right-10 flex items-center pl-3 pointer-events-none md:top-[16rem]'>
+							<FontAwesomeIcon
+								icon={faCircleUser}
+								style={{ color: 'red' }}
+							/>
+						</div>
 						<FormTemplate
 							formTemplateProps={
 								formTemplate.fullNamesOfDirector2
@@ -227,6 +263,12 @@ function PartnerForm() {
 						/>
 					</div>
 					<div className='mt-3'>
+						<div className='absolute top-[24.5rem] right-10 flex items-center pl-3 pointer-events-none md:top-[20rem]'>
+							<FontAwesomeIcon
+								icon={faThumbsUp}
+								style={{ color: 'red' }}
+							/>
+						</div>
 						<FormTemplate
 							formTemplateProps={formTemplate.bvnOfDirector1}
 							formDataProps={formData.bvnOfDirector1}
@@ -237,6 +279,12 @@ function PartnerForm() {
 						/>
 					</div>
 					<div className='mt-3'>
+						<div className='absolute top-[28rem] right-10 flex items-center pl-3 pointer-events-none md:top-[24rem]'>
+							<FontAwesomeIcon
+								icon={faThumbsUp}
+								style={{ color: 'red' }}
+							/>
+						</div>
 						<FormTemplate
 							formTemplateProps={formTemplate.bvnOfDirector2}
 							formDataProps={formData.bvnOfDirector2}
@@ -436,6 +484,12 @@ function PartnerForm() {
 						</small>
 					)}
 					<div className='mt-3'>
+						<div className='absolute -bottom-[65.5rem] right-10 flex items-center pl-3 pointer-events-none md:top-[62.5rem]'>
+							<FontAwesomeIcon
+								icon={faIndustry}
+								style={{ color: 'red' }}
+							/>
+						</div>
 						<FormTemplate
 							formTemplateProps={formTemplate.officeAddress}
 							formDataProps={formData.officeAddress}
@@ -447,6 +501,12 @@ function PartnerForm() {
 					</div>
 
 					<div className='mt-3'>
+						<div className='absolute -bottom-[69rem] right-10 flex items-center pl-3 pointer-events-none md:top-[66.5rem]'>
+							<FontAwesomeIcon
+								icon={faAt}
+								style={{ color: 'red' }}
+							/>
+						</div>
 						<FormTemplate
 							formTemplateProps={formTemplate.email}
 							formDataProps={formData.email}
@@ -458,6 +518,12 @@ function PartnerForm() {
 					</div>
 
 					<div className='mt-3'>
+						<div className='absolute -bottom-[72.8rem] right-10 flex items-center pl-3 pointer-events-none md:top-[70rem]'>
+							<FontAwesomeIcon
+								icon={faGlobe}
+								style={{ color: 'red' }}
+							/>
+						</div>
 						<FormTemplate
 							formTemplateProps={formTemplate.website}
 							formDataProps={formData.website}
@@ -468,6 +534,12 @@ function PartnerForm() {
 						/>
 					</div>
 					<div className='relative px-3 mt-4'>
+						<div className='absolute top-4 right-10 flex items-center pl-3 pointer-events-none md:-top-[0.5rem] md:bottom-0'>
+							<FontAwesomeIcon
+								icon={faPhone}
+								style={{ color: 'red' }}
+							/>
+						</div>
 						<input
 							type='text'
 							name='officePhone'
@@ -492,6 +564,12 @@ function PartnerForm() {
 					</div>
 
 					<div className='mt-3'>
+						<div className='absolute -bottom-[80.5rem] right-10 flex items-center pl-3 pointer-events-none md:top-[102rem] md:bottom-0'>
+							<FontAwesomeIcon
+								icon={faPhone}
+								style={{ color: 'red' }}
+							/>
+						</div>
 						<FormTemplate
 							formTemplateProps={formTemplate.mobilePhone}
 							formDataProps={formData.mobilePhone}
