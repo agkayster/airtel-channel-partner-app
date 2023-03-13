@@ -93,3 +93,35 @@ const signatoryRequirements = [
 	},
 ];
 export { signatoryRequirements };
+
+const titleRequirements = [
+	{
+		id: 'title1',
+		title: 'Mr.',
+	},
+	{
+		id: 'title2',
+		title: 'Mrs.',
+	},
+	{
+		id: 'title3',
+		title: 'Others',
+	},
+];
+export { titleRequirements };
+
+const genderRequirements = [
+	{
+		id: 'gender1',
+		gender: 'Male',
+	},
+	{
+		id: 'gender2',
+		gender: 'Female',
+	},
+	{
+		id: 'gender3',
+		gender: 'Others',
+	},
+];
+export { genderRequirements };

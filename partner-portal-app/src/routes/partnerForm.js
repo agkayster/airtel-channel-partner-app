@@ -4,9 +4,15 @@ import axios from 'axios';
 import { formTemplate } from '../template/template';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { companyRequirements } from '../template/template';
-import { signatoryRequirements } from '../template/template';
+import {
+	companyRequirements,
+	signatoryRequirements,
+} from '../template/template';
+// import { signatoryRequirements } from '../template/template';
+import SelectTemplate from '../template/selectTitleTemplate';
+import SelectGenderTemplate from '../template/selectGenderTemplate';
 import FormTemplate from '../template/formTemplate';
+import CheckBoxTemplate from '../template/checkboxTemplate';
 import Button from '../components/Button';
 import { faAt } from '@fortawesome/free-solid-svg-icons';
 import { faIndustry } from '@fortawesome/free-solid-svg-icons';
@@ -18,7 +24,6 @@ import { faFileLines } from '@fortawesome/free-solid-svg-icons';
 import { faRegistered } from '@fortawesome/free-solid-svg-icons';
 
 function PartnerForm() {
-	// const url = process.env.REACT_APP_API_STRING;
 	const url = process.env.REACT_APP_VERCEL_FRONTEND_URL;
 	const [error, setError] = useState({});
 	const [message, setMessage] = useState('');
@@ -34,6 +39,10 @@ function PartnerForm() {
 		taxIdentificationNumber: '',
 		bvnOfDirector1: '',
 		bvnOfDirector2: '',
+		title1: 'Mr.',
+		title2: 'Mr.',
+		gender1: 'Male',
+		gender2: 'Male',
 		companyName: '',
 		image: '',
 		isIndividualCompany: false,
@@ -53,11 +62,13 @@ function PartnerForm() {
 
 	const navigate = useNavigate();
 
+	// Upload files input //
 	const handleFormFiles = (e, field) => {
 		const { files } = e.target;
 		setFormData({ ...formData, [field]: files });
 	};
 
+	// Handle Form submit //
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
 
@@ -87,6 +98,10 @@ function PartnerForm() {
 		});
 		form.append('fullNamesOfDirector1', formData.fullNamesOfDirector1);
 		form.append('fullNamesOfDirector2', formData.fullNamesOfDirector2);
+		form.append('title1', formData.title1);
+		form.append('title2', formData.title2);
+		form.append('gender1', formData.gender1);
+		form.append('gender2', formData.gender2);
 		form.append(
 			'taxIdentificationNumber',
 			formData.taxIdentificationNumber
@@ -136,11 +151,13 @@ function PartnerForm() {
 		}
 	};
 
+	// Inputs //
 	const handleFormChange = (e, field) => {
 		const { value } = e.target;
 		setFormData({ ...formData, [field]: value });
 	};
 
+	// Type of business checkbox //
 	const handleBusinessTypeCheckbox = (e, field) => {
 		const { checked } = e.target;
 		const checkedBox = [];
@@ -158,6 +175,7 @@ function PartnerForm() {
 		setBusinessCheckbox([...businessCheckBox, ...checkedBox]);
 	};
 
+	// Form of Identification checkbox //
 	const handleIdentificationCheckbox = (e, field) => {
 		const { checked } = e.target;
 		const checkedIdBox = [];
@@ -172,9 +190,16 @@ function PartnerForm() {
 		setIDCheckBox([...idCheckBox, ...checkedIdBox]);
 	};
 
+	// Complete checkbox //
 	const handleFormCheckbox = (e, field) => {
 		const { checked } = e.target;
 		setFormData({ ...formData, [field]: checked });
+	};
+
+	// Select dropdown //
+	const handleSelect = (e, field) => {
+		const { value } = e.target;
+		setFormData({ ...formData, [field]: value });
 	};
 
 	console.log('get form data =>', formData);
@@ -207,7 +232,6 @@ function PartnerForm() {
 							errorProps={error?.error?.companyName}
 						/>
 					</div>
-
 					<div className='relative mt-3'>
 						<div className='absolute inset-y-0 right-10 flex items-center pl-3 pointer-events-none'>
 							<FontAwesomeIcon
@@ -226,7 +250,14 @@ function PartnerForm() {
 							errorProps={error?.error?.taxIdentificationNumber}
 						/>
 					</div>
-
+					<SelectTemplate
+						htmlForProps='title1'
+						labelProps='Title:'
+						idProps='title1'
+						nameProps='selectedTitle1'
+						formDataProps={formData.title1}
+						handleProps={handleSelect}
+					/>
 					<div className='relative mt-3'>
 						<div className='absolute inset-y-0 right-10 flex items-center pl-3 pointer-events-none'>
 							<FontAwesomeIcon
@@ -245,6 +276,22 @@ function PartnerForm() {
 							errorProps={error?.error?.fullNamesOfDirector1}
 						/>
 					</div>
+					<SelectGenderTemplate
+						htmlForProps='gender1'
+						labelProps='Gender:'
+						idProps='gender1'
+						nameProps='selectedGender1'
+						formDataProps={formData.gender1}
+						handleProps={handleSelect}
+					/>
+					<SelectTemplate
+						htmlForProps='title2'
+						labelProps='Title:'
+						idProps='title2'
+						nameProps='selectedTitle2'
+						formDataProps={formData.title2}
+						handleProps={handleSelect}
+					/>
 					<div className='mt-3 relative'>
 						<div className='absolute inset-y-0 right-10 flex items-center pl-3 pointer-events-none'>
 							<FontAwesomeIcon
@@ -263,7 +310,15 @@ function PartnerForm() {
 							errorProps={error?.error?.fullNamesOfDirector2}
 						/>
 					</div>
-					<div className='mt-3 relative'>
+					<SelectGenderTemplate
+						htmlForProps='gender2'
+						labelProps='Gender:'
+						idProps='gender2'
+						nameProps='selectedGender2'
+						formDataProps={formData.gender2}
+						handleProps={handleSelect}
+					/>
+					<div className='mt-5 relative'>
 						<div className='absolute inset-y-0 right-10 flex items-center pl-3 pointer-events-none'>
 							<FontAwesomeIcon
 								icon={faThumbsUp}
@@ -310,78 +365,46 @@ function PartnerForm() {
 							Please pick tick only one business type
 						</h1>
 					)}
-					<label
-						className='px-3 flex mt-4'
-						htmlFor='default-checkbox'>
-						<span>{formTemplate.isIndividualCompany}</span>
-						<input
-							id='default-checkbox'
-							type='checkbox'
-							name='isIndividualCompany'
-							value={formData.isIndividualCompany}
-							onChange={(e) =>
-								handleBusinessTypeCheckbox(
-									e,
-									'isIndividualCompany'
-								)
-							}
-							className='w-4 h-4 mt-0.5 ml-4 text-blue-600 bg-gray-100 border-blue-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
-						/>
-					</label>
-					<label
-						className='px-3 flex mt-4'
-						htmlFor='default-checkbox'>
-						<span>{formTemplate.isProprietorshipCompany}</span>
-						<input
-							id='default-checkbox'
-							type='checkbox'
-							name='isProprietorshipCompany'
-							value={formData.isProprietorshipCompany}
-							onChange={(e) =>
-								handleBusinessTypeCheckbox(
-									e,
-									'isProprietorshipCompany'
-								)
-							}
-							className='w-4 h-4 mt-0.5 ml-4 text-blue-600 bg-gray-100 border-blue-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
-						/>
-					</label>
-					<label
-						className='px-3 flex mt-4'
-						htmlFor='default-checkbox'>
-						<span>{formTemplate.isPartnershipCompany}</span>
-						<input
-							id='default-checkbox'
-							type='checkbox'
-							name='isPartnershipCompany'
-							value={formData.isPartnershipCompany}
-							onChange={(e) =>
-								handleBusinessTypeCheckbox(
-									e,
-									'isPartnershipCompany'
-								)
-							}
-							className='w-4 h-4 mt-0.5 ml-4 text-blue-600 bg-gray-100 border-blue-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
-						/>
-					</label>
-					<label
-						className='px-3 flex mt-4'
-						htmlFor='default-checkbox'>
-						<span>{formTemplate.isLimitedCompany}</span>
-						<input
-							id='default-checkbox'
-							type='checkbox'
-							name='isLimitedCompany'
-							value={formData.isLimitedCompany}
-							onChange={(e) =>
-								handleBusinessTypeCheckbox(
-									e,
-									'isLimitedCompany'
-								)
-							}
-							className='w-4 h-4 mt-0.5 ml-4 text-blue-600 bg-gray-100 border-blue-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
-						/>
-					</label>
+					<CheckBoxTemplate
+						formTeplateProps={formTemplate.isIndividualCompany}
+						formDataProps={formData.isIndividualCompany}
+						handleProps={handleBusinessTypeCheckbox}
+						htmlForProps='default-checkbox'
+						idProps='default-checkbox'
+						nameProps='isIndividualCompany'
+						typeProps='checkbox'
+					/>
+
+					<CheckBoxTemplate
+						formTeplateProps={formTemplate.isProprietorshipCompany}
+						formDataProps={formData.isProprietorshipCompany}
+						handleProps={handleBusinessTypeCheckbox}
+						htmlForProps='default-checkbox'
+						idProps='default-checkbox'
+						nameProps='isProprietorshipCompany'
+						typeProps='checkbox'
+					/>
+
+					<CheckBoxTemplate
+						formTeplateProps={formTemplate.isPartnershipCompany}
+						formDataProps={formData.isPartnershipCompany}
+						handleProps={handleBusinessTypeCheckbox}
+						htmlForProps='default-checkbox'
+						idProps='default-checkbox'
+						nameProps='isPartnershipCompany'
+						typeProps='checkbox'
+					/>
+
+					<CheckBoxTemplate
+						formTeplateProps={formTemplate.isLimitedCompany}
+						formDataProps={formData.isLimitedCompany}
+						handleProps={handleBusinessTypeCheckbox}
+						htmlForProps='default-checkbox'
+						idProps='default-checkbox'
+						nameProps='isLimitedCompany'
+						typeProps='checkbox'
+					/>
+
 					<div>
 						<p className="mt-4 font-bold px-3 after:content-['*'] after:ml-0.5 after:text-red-500">
 							Form of Identification
@@ -392,57 +415,36 @@ function PartnerForm() {
 							</h1>
 						)}
 					</div>
-					<label
-						className='px-3 flex mt-4'
-						htmlFor='default-checkbox'>
-						<span>{formTemplate.isDrivingLicense}</span>
-						<input
-							id='default-checkbox'
-							type='checkbox'
-							name='isDrivingLicense'
-							value={formData.isDrivingLicense}
-							onChange={(e) =>
-								handleIdentificationCheckbox(
-									e,
-									'isDrivingLicense'
-								)
-							}
-							className='w-4 h-4 mt-0.5 ml-4 text-blue-600 bg-gray-100 border-blue-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
-						/>
-					</label>
-					<label
-						className='px-3 flex mt-4'
-						htmlFor='default-checkbox'>
-						<span>{formTemplate.isVotersId}</span>
-						<input
-							id='default-checkbox'
-							type='checkbox'
-							name='isVotersId'
-							value={formData.isVotersId}
-							onChange={(e) =>
-								handleIdentificationCheckbox(e, 'isVotersId')
-							}
-							className='w-4 h-4 mt-0.5 ml-4 text-blue-600 bg-gray-100 border-blue-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
-						/>
-					</label>
-					<label
-						className='px-3 flex mt-4'
-						htmlFor='default-checkbox'>
-						<span>{formTemplate.isInternationalPassport}</span>
-						<input
-							id='default-checkbox'
-							type='checkbox'
-							name='isInternationalPassport'
-							value={formData.isInternationalPassport}
-							onChange={(e) =>
-								handleIdentificationCheckbox(
-									e,
-									'isInternationalPassport'
-								)
-							}
-							className='w-4 h-4 mt-0.5 ml-4 text-blue-600 bg-gray-100 border-blue-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
-						/>
-					</label>
+					<CheckBoxTemplate
+						formTeplateProps={formTemplate.isDrivingLicense}
+						formDataProps={formData.isDrivingLicense}
+						handleProps={handleIdentificationCheckbox}
+						htmlForProps='default-checkbox'
+						idProps='default-checkbox'
+						nameProps='isDrivingLicense'
+						typeProps='checkbox'
+					/>
+
+					<CheckBoxTemplate
+						formTeplateProps={formTemplate.isVotersId}
+						formDataProps={formData.isVotersId}
+						handleProps={handleIdentificationCheckbox}
+						htmlForProps='default-checkbox'
+						idProps='default-checkbox'
+						nameProps='isVotersId'
+						typeProps='checkbox'
+					/>
+
+					<CheckBoxTemplate
+						formTeplateProps={formTemplate.isInternationalPassport}
+						formDataProps={formData.isInternationalPassport}
+						handleProps={handleIdentificationCheckbox}
+						htmlForProps='default-checkbox'
+						idProps='default-checkbox'
+						nameProps='isInternationalPassport'
+						typeProps='checkbox'
+					/>
+
 					<div className='px-3 mt-4'>
 						<p className='font-semibold'>
 							Please upload a scanned copy of the following
@@ -500,7 +502,6 @@ function PartnerForm() {
 							errorProps={error?.error?.officeAddress}
 						/>
 					</div>
-
 					<div className='mt-3 relative'>
 						<div className='absolute inset-y-0 right-10 flex items-center pl-3 pointer-events-none'>
 							<FontAwesomeIcon
@@ -517,7 +518,6 @@ function PartnerForm() {
 							errorProps={error?.error?.email}
 						/>
 					</div>
-
 					<div className='mt-3 relative'>
 						<div className='absolute inset-y-0 right-10 flex items-center pl-3 pointer-events-none'>
 							<FontAwesomeIcon
@@ -563,7 +563,6 @@ function PartnerForm() {
 							</small>
 						)}
 					</div>
-
 					<div className='mt-3 relative'>
 						<div className='absolute inset-y-0 right-10 flex items-center pl-3 pointer-events-none'>
 							<FontAwesomeIcon
@@ -587,7 +586,6 @@ function PartnerForm() {
 							knowledge
 						</p>
 					</div>
-
 					<p className='mt-4 px-2 font-semibold text-base'>
 						Kindly tick the checkbox once form is completed
 					</p>
