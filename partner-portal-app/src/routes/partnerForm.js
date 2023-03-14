@@ -478,7 +478,7 @@ function PartnerForm() {
 							multiple
 							required
 							onChange={(e) => handleFormFiles(e, 'image')}
-							className='mt-1 px-3 py-2 bg-white border shadow-sm border-red-400 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'
+							className='mt-1 px-3 py-2 bg-white border shadow-sm border-red-400 placeholder-slate-400 focus:outline-none focus:border-red-500 focus:ring-red-500 block w-full rounded-md sm:text-sm focus:ring-1'
 						/>
 					</label>
 					{error?.error?.files && (
